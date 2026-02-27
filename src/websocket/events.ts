@@ -4,7 +4,10 @@ import { WebSocketLevel, WebSocketResponse } from "./general";
 export type WebSocketSubscriptionChannel =
   | `images:*`
   | `users:${number}:images`
-  | `images:${number}`;
+  | `images:${number}`
+  | `comments:*`
+  | `images:${number}:comments`
+  | `comments:${number}`;
 
 export interface WebSocketServerToClientEvents {
   welcome: (payload: {

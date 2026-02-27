@@ -1,16 +1,16 @@
 import { ApiComment, ApiImage } from "../api";
-import { Level, SocketResponse } from "./general";
+import { WebSocketLevel, WebSocketResponse } from "./general";
 
-export type SubscriptionChannel =
+export type WebSocketSubscriptionChannel =
   | `images:*`
   | `users:${number}:images`
   | `images:${number}`;
 
-export interface ServerToClientEvents {
+export interface WebSocketServerToClientEvents {
   welcome: (payload: {
     userId: number;
     username: string;
-    level: Level;
+    level: WebSocketLevel;
   }) => void;
   error: (message: string) => void;
 
@@ -24,24 +24,24 @@ export interface ServerToClientEvents {
   "comment:update": (payload: { id: number } & Partial<ApiComment>) => void;
 }
 
-export interface ClientToServerEvents {
+export interface WebSocketClientToServerEvents {
   ping: (callback: () => void) => void;
   subscribe: (
-    intent: SubscriptionChannel,
-    callback?: (response: SocketResponse) => void,
+    intent: WebSocketSubscriptionChannel,
+    callback?: (response: WebSocketResponse) => void,
   ) => void;
   unsubscribe: (
-    intent: SubscriptionChannel,
-    callback?: (response: SocketResponse) => void,
+    intent: WebSocketSubscriptionChannel,
+    callback?: (response: WebSocketResponse) => void,
   ) => void;
 
   "share:join": (
     shareId: number,
-    callback?: (response: SocketResponse) => void,
+    callback?: (response: WebSocketResponse) => void,
   ) => void;
   "share:leave": (
     shareId: number,
-    callback?: (response: SocketResponse) => void,
+    callback?: (response: WebSocketResponse) => void,
   ) => void;
 
   "image:update": (payload: {

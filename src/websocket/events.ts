@@ -1,6 +1,11 @@
 import { ApiComment, ApiImage } from "../api";
 import { Level, SocketResponse } from "./general";
 
+export type SubscriptionChannel =
+  | `images:*`
+  | `users:${number}:images`
+  | `images:${number}`;
+
 export interface ServerToClientEvents {
   welcome: (payload: {
     userId: number;
@@ -18,11 +23,6 @@ export interface ServerToClientEvents {
   "comment:delete": (payload: { id: number }) => void;
   "comment:update": (payload: { id: number } & Partial<ApiComment>) => void;
 }
-
-type SubscriptionChannel =
-  | `images:*`
-  | `users:${number}:images`
-  | `images:${number}`;
 
 export interface ClientToServerEvents {
   ping: (callback: () => void) => void;

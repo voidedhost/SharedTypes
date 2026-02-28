@@ -9,7 +9,8 @@ export type WebSocketSubscriptionChannel =
   | `images:${number}:comments`
   | `comments:${number}`
   | `users:*`
-  | `users:${number}`;
+  | `users:${number}`
+  | `users:${number}:comments`;
 
 export interface WebSocketServerToClientEvents {
   welcome: (payload: {

@@ -124,3 +124,11 @@ export type ApiUser = {
   welcomeActivities: number;
   customCursor: number;
 };
+
+export type ApiLike = {
+  id: number;
+  userId: number;
+  referenceType: number;
+  referenceId: number;
+  createdTimestamp: Date;
+};

@@ -11,7 +11,9 @@ export type WebSocketSubscriptionChannel =
   | `users:*`
   | `users:${number}`
   | `users:${number}:comments`
-  | `users:${number}:likes`;
+  | `users:${number}:likes`
+  | `likes:*`
+  | `likes:${number}`;
 
 export interface WebSocketServerToClientEvents {
   welcome: (payload: {

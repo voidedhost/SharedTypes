@@ -1,4 +1,4 @@
-import { ApiComment, ApiImage } from "../api";
+import { ApiComment, ApiImage, ApiUser } from "../api";
 import { WebSocketLevel, WebSocketResponse } from "./general";
 
 export type WebSocketSubscriptionChannel =
@@ -7,7 +7,9 @@ export type WebSocketSubscriptionChannel =
   | `images:${number}`
   | `comments:*`
   | `images:${number}:comments`
-  | `comments:${number}`;
+  | `comments:${number}`
+  | `users:*`
+  | `users:${number}`;
 
 export interface WebSocketServerToClientEvents {
   welcome: (payload: {
@@ -25,6 +27,8 @@ export interface WebSocketServerToClientEvents {
   "comment:create": (payload: ApiComment) => void;
   "comment:delete": (payload: { id: number }) => void;
   "comment:update": (payload: { id: number } & Partial<ApiComment>) => void;
+
+  "user:update": (payload: { id: number } & Partial<ApiUser>) => void;
 }
 
 export interface WebSocketClientToServerEvents {
@@ -72,5 +76,11 @@ export interface WebSocketClientToServerEvents {
     exclude?: string[];
     rooms: string[];
     data: { id: number } & Partial<ApiComment>;
+  }) => void;
+
+  "user:update": (payload: {
+    exclude?: string[];
+    rooms: string[];
+    data: { id: number } & Partial<ApiUser>;
   }) => void;
 }

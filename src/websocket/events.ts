@@ -33,7 +33,6 @@ export interface WebSocketServerToClientEvents {
   "user:update": (payload: { id: number } & Partial<ApiUser>) => void;
 
   "like:create": (payload: ApiLike) => void;
-  "like:update": (payload: { id: number } & Partial<ApiLike>) => void;
   "like:delete": (payload: { id: number }) => void;
 }
 
@@ -88,5 +87,16 @@ export interface WebSocketClientToServerEvents {
     exclude?: string[];
     rooms: string[];
     data: { id: number } & Partial<ApiUser>;
+  }) => void;
+
+  "like:create": (payload: {
+    exclude?: string[];
+    rooms: string[];
+    data: ApiLike;
+  }) => void;
+  "like:delete": (payload: {
+    exclude?: string[];
+    rooms: string[];
+    data: { id: number };
   }) => void;
 }

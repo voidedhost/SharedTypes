@@ -132,3 +132,19 @@ export type ApiLike = {
   referenceId: number;
   createdTimestamp: Date;
 };
+
+export type ApiDomain = {
+  id: number;
+  name: string;
+  ownerId: number;
+  addedTimestamp: Date;
+  status: number;
+  availability: number;
+  supportsSubdomain: boolean;
+  supportsPath: boolean;
+  cloudflareZoneId: string;
+  official: boolean;
+  lastPingTimestamp: Date;
+  failedSinceTimestamp: Date | null;
+  uses: number;
+};

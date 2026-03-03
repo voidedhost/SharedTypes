@@ -1,6 +1,6 @@
 {
   "name": "@voidedhost/shared-types",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Shared TypeScript types for voided.host projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

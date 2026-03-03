@@ -1,5 +1,10 @@
 import { ApiComment, ApiDomain, ApiImage, ApiLike, ApiUser } from "../api";
-import { WebSocketLevel, WebSocketResponse } from "./general";
+import { PartialStructure } from "../universal";
+import {
+  WebSocketClientToServerEventMasterBasePayload,
+  WebSocketLevel,
+  WebSocketResponse,
+} from "./general";
 
 export type WebSocketSubscriptionChannel =
   | `images:*`
@@ -27,19 +32,19 @@ export interface WebSocketServerToClientEvents {
 
   "share:count": (payload: { shareId: number; count: number }) => void;
 
-  "image:update": (payload: { id: number } & Partial<ApiImage>) => void;
+  "image:update": (payload: PartialStructure<ApiImage>) => void;
   "image:delete": (payload: { id: number }) => void;
 
   "comment:create": (payload: ApiComment) => void;
   "comment:delete": (payload: { id: number }) => void;
-  "comment:update": (payload: { id: number } & Partial<ApiComment>) => void;
+  "comment:update": (payload: PartialStructure<ApiComment>) => void;
 
-  "user:update": (payload: { id: number } & Partial<ApiUser>) => void;
+  "user:update": (payload: PartialStructure<ApiUser>) => void;
 
   "like:create": (payload: ApiLike) => void;
   "like:delete": (payload: { id: number }) => void;
 
-  "domain:update": (payload: { id: number } & Partial<ApiDomain>) => void;
+  "domain:update": (payload: PartialStructure<ApiDomain>) => void;
 }
 
 export interface WebSocketClientToServerEvents {
@@ -62,53 +67,43 @@ export interface WebSocketClientToServerEvents {
     callback?: (response: WebSocketResponse) => void,
   ) => void;
 
-  "image:update": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number } & Partial<ApiImage>;
-  }) => void;
-  "image:delete": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number };
-  }) => void;
+  "image:update": (
+    payload: WebSocketClientToServerEventMasterBasePayload<
+      PartialStructure<ApiImage>
+    >,
+  ) => void;
+  "image:delete": (
+    payload: WebSocketClientToServerEventMasterBasePayload<{ id: number }>,
+  ) => void;
 
-  "comment:create": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: ApiComment;
-  }) => void;
-  "comment:delete": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number };
-  }) => void;
-  "comment:update": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number } & Partial<ApiComment>;
-  }) => void;
+  "comment:create": (
+    payload: WebSocketClientToServerEventMasterBasePayload<ApiComment>,
+  ) => void;
+  "comment:delete": (
+    payload: WebSocketClientToServerEventMasterBasePayload<{ id: number }>,
+  ) => void;
+  "comment:update": (
+    payload: WebSocketClientToServerEventMasterBasePayload<
+      PartialStructure<ApiComment>
+    >,
+  ) => void;
 
-  "user:update": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number } & Partial<ApiUser>;
-  }) => void;
+  "user:update": (
+    payload: WebSocketClientToServerEventMasterBasePayload<
+      PartialStructure<ApiUser>
+    >,
+  ) => void;
 
-  "like:create": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: ApiLike;
-  }) => void;
-  "like:delete": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number };
-  }) => void;
+  "like:create": (
+    payload: WebSocketClientToServerEventMasterBasePayload<ApiLike>,
+  ) => void;
+  "like:delete": (
+    payload: WebSocketClientToServerEventMasterBasePayload<{ id: number }>,
+  ) => void;
 
-  "domain:update": (payload: {
-    exclude?: string[];
-    rooms: string[];
-    data: { id: number } & Partial<ApiDomain>;
-  }) => void;
+  "domain:update": (
+    payload: WebSocketClientToServerEventMasterBasePayload<
+      PartialStructure<ApiDomain>
+    >,
+  ) => void;
 }
